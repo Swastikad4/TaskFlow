@@ -76,6 +76,74 @@ Modern software teams struggle with fragmented workflows, disconnected task trac
 
 ---
 
+## 📸 Screenshots
+
+### 📊 Executive Dashboard
+
+<img src="./screenshots/dashboard.png" alt="TaskFlow Dashboard" width="100%">
+
+<img src="./screenshots/dashboard-completion.png" alt="TaskFlow Task Completion & Priority" width="100%">
+
+*TaskFlow executive dashboard displaying live task metrics (Total, In Progress, Completed, Overdue), high-priority active task queue, upcoming milestones, completion velocity progress bar, and priority workload breakdown.*
+
+---
+
+### 📋 Task Management Directory
+
+<img src="./screenshots/tasks.png" alt="Task Matrix Directory" width="100%">
+
+*Central task matrix with multi-criteria search, status/priority/squad filters, timeline preset buttons, tag labels, recurring badges, and subtask checklist indicators.*
+
+---
+
+### 🗂️ Interactive Kanban Board
+
+<img src="./screenshots/kanban.png" alt="TaskFlow Kanban Board" width="100%">
+
+*Interactive drag-and-drop Kanban board supporting real-time column transitions across To Do, In Progress, and Completed states.*
+
+---
+
+### 📅 Timeline & Calendar Matrix
+
+<img src="./screenshots/calendar.png" alt="Timeline & Calendar Matrix" width="100%">
+
+*Monthly and weekly calendar schedule visualizing deliverable deadlines, milestones, overdue alerts, and color-coded status badges.*
+
+---
+
+### ➕ Task Creation & Recurrence Engine
+
+<img src="./screenshots/create-task.png" alt="Create New Task" width="100%">
+
+*Modal and dedicated task creation form with squad assignment, priority weighting, tag inputs, due dates, and automated recurring cron scheduling.*
+
+---
+
+### 📈 Productivity & Velocity Analytics
+
+<img src="./screenshots/analytics.png" alt="Productivity Analytics" width="100%">
+
+*Faceted MongoDB productivity analytics dashboard with date-range scoping (7d, 30d, 90d, all time), workflow saturation meters, priority breakdown, and 30-day completion velocity timeline.*
+
+---
+
+### 👤 User Profile & Security Matrix
+
+<img src="./screenshots/profile.png" alt="User Profile" width="100%">
+
+*User profile showing individual throughput metrics, account metadata, and role-based access control (RBAC) permissions.*
+
+---
+
+### 🔐 Authentication & Access Control
+
+<img src="./screenshots/login.png" alt="TaskFlow Login" width="100%">
+
+*Secure authentication portal with JWT token issuance, device session tracking, and role validation.*
+
+---
+
 ## 🛠️ Technology Stack
 
 | Layer | Technology | Purpose |
@@ -345,12 +413,6 @@ npm run test:realtime
 # Run Core Backend API Test Suite (31 assertions)
 npm test
 ```
-
----
-
-## 📸 Screenshots
-
-Add screenshots of the application here.
 
 ---
 
