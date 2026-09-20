@@ -134,7 +134,7 @@ const LoginPage = () => {
               type="email"
               required
               className="form-input"
-              placeholder="name@company.com"
+              placeholder="Enter your email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -146,7 +146,7 @@ const LoginPage = () => {
               type="password"
               required
               className="form-input"
-              placeholder="••••••••"
+              placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

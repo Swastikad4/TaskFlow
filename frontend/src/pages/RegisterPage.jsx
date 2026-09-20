@@ -118,7 +118,6 @@ const RegisterPage = () => {
               type="text"
               required
               className="form-input"
-              placeholder="e.g. Alex Smith"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -130,7 +129,7 @@ const RegisterPage = () => {
               type="email"
               required
               className="form-input"
-              placeholder="alex@company.com"
+              placeholder="Enter your email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />

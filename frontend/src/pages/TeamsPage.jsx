@@ -238,33 +238,15 @@ const TeamsPage = () => {
   };
 
   return (
-    <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 24 }}>
+    <div className="teams-page-container">
       {/* Header Banner */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: 16,
-        }}
-      >
+      <div className="teams-header-banner">
         <div>
-          <h1
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: '1.8rem',
-              fontWeight: 800,
-              color: 'var(--text-white)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 10,
-            }}
-          >
-            <Users size={28} color="var(--coral-primary)" />
+          <h1 className="teams-header-title">
+            <Users size={26} color="var(--coral-primary)" />
             <span>Team Workspace Hub</span>
           </h1>
-          <p style={{ color: 'var(--text-white-muted)', fontSize: '0.9rem', marginTop: 4 }}>
+          <p className="teams-header-subtitle">
             Organize departments, assign squad managers, and coordinate cross-functional task matrices
           </p>
         </div>
@@ -333,226 +315,121 @@ const TeamsPage = () => {
           <div>Synchronizing Team Rosters...</div>
         </div>
       ) : teams.length === 0 ? (
-        <GlassCard style={{ textAlign: 'center', padding: '60px 20px' }}>
-          <Users size={48} color="var(--text-muted)" style={{ margin: '0 auto 16px auto', opacity: 0.6 }} />
-          <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', fontWeight: 700 }}>
-            No Teams Created Yet
+        <GlassCard style={{ textAlign: 'center', padding: '50px 20px' }}>
+          <Users size={44} color="var(--text-muted)" style={{ margin: '0 auto 14px auto', opacity: 0.5 }} />
+          <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-primary)' }}>
+            No teams yet
           </h3>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', maxWidth: 460, margin: '8px auto 20px auto' }}>
-            Teams allow managers to coordinate task assignments and track workload distribution across squads.
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', maxWidth: 460, margin: '6px auto 20px auto' }}>
+            Create your first team to organize members and tasks.
           </p>
           {canCreateTeam && (
             <button onClick={handleOpenCreateModal} className="btn-coral">
               <Plus size={16} />
-              <span>Create First Team</span>
+              <span>Create New Team</span>
             </button>
           )}
         </GlassCard>
       ) : (
         /* Team Cards Grid */
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
-            gap: 20,
-          }}
-        >
+        <div className="teams-grid">
           {teams.map((team) => {
             const isManagerOfTeam = team.manager?._id?.toString() === user?._id?.toString();
             const canManage = isAdmin || isManagerOfTeam;
 
             return (
-              <GlassCard key={team._id} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                {/* Header with actions */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <div>
-                    <h3
-                      style={{
-                        fontFamily: 'var(--font-heading)',
-                        fontSize: '1.2rem',
-                        fontWeight: 700,
-                        color: 'var(--text-primary)',
-                      }}
-                    >
-                      {team.name}
-                    </h3>
-                    <p
-                      style={{
-                        color: 'var(--text-secondary)',
-                        fontSize: '0.85rem',
-                        marginTop: 4,
-                        minHeight: 36,
-                      }}
-                    >
-                      {team.description || 'No description provided.'}
-                    </p>
-                  </div>
-
-                  <div style={{ display: 'flex', gap: 6 }}>
-                    {canManage && (
-                      <button
-                        onClick={() => handleOpenManageModal(team)}
-                        className="glass-icon-btn"
-                        title="Manage Squad Members"
-                        style={{ width: 32, height: 32 }}
-                      >
-                        <Edit2 size={14} />
-                      </button>
-                    )}
-                    {isAdmin && (
-                      <button
-                        onClick={() => handleDeleteTeam(team._id, team.name)}
-                        className="glass-icon-btn"
-                        title="Delete Team"
-                        style={{ width: 32, height: 32, color: '#EF4444' }}
-                      >
-                        <Trash2 size={14} />
-                      </button>
-                    )}
-                  </div>
-                </div>
-
-                {/* Team Manager Banner */}
-                <div
-                  style={{
-                    background: 'var(--card-bg-subtle)',
-                    border: '1px solid var(--card-border-subtle)',
-                    borderRadius: 'var(--card-radius-sm)',
-                    padding: '10px 14px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <div
-                      style={{
-                        width: 32,
-                        height: 32,
-                        borderRadius: '50%',
-                        background: 'var(--coral-gradient)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#FFF',
-                        fontSize: '0.75rem',
-                        fontWeight: 700,
-                      }}
-                    >
-                      {getInitials(team.manager?.name || 'M')}
+              <div key={team._id} className="team-card">
+                <div>
+                  {/* Header with actions */}
+                  <div className="team-card-top">
+                    <div className="team-card-info">
+                      <h3 className="team-card-name" title={team.name}>
+                        {team.name}
+                      </h3>
+                      <p className="team-card-desc">
+                        {team.description || 'No description provided.'}
+                      </p>
                     </div>
-                    <div>
-                      <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)' }}>
-                        {team.manager?.name || 'Unassigned'}
-                      </div>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-                        {team.manager?.email || 'No email'}
-                      </div>
+
+                    <div className="team-card-actions">
+                      {canManage && (
+                        <button
+                          onClick={() => handleOpenManageModal(team)}
+                          className="glass-icon-btn"
+                          title="Manage Squad Members"
+                          style={{ width: 32, height: 32 }}
+                          aria-label="Manage Team"
+                        >
+                          <Edit2 size={14} />
+                        </button>
+                      )}
+                      {isAdmin && (
+                        <button
+                          onClick={() => handleDeleteTeam(team._id, team.name)}
+                          className="glass-icon-btn"
+                          title="Delete Team"
+                          style={{ width: 32, height: 32, color: '#EF4444' }}
+                          aria-label="Delete Team"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      )}
                     </div>
                   </div>
 
-                  <span
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 4,
-                      fontSize: '0.7rem',
-                      fontWeight: 700,
-                      color: 'var(--coral-primary)',
-                      background: 'var(--coral-glow)',
-                      padding: '2px 8px',
-                      borderRadius: 'var(--card-radius-pill)',
-                    }}
-                  >
-                    <Crown size={12} />
-                    Manager
-                  </span>
+                  {/* Team Manager Banner */}
+                  <div className="team-manager-card">
+                    <div className="team-manager-left">
+                      <div className="team-manager-avatar">
+                        {getInitials(team.manager?.name || 'M')}
+                      </div>
+                      <div className="team-manager-meta">
+                        <div className="team-manager-name" title={team.manager?.name || 'Unassigned'}>
+                          {team.manager?.name || 'Unassigned'}
+                        </div>
+                        <div className="team-manager-email" title={team.manager?.email || 'No email'}>
+                          {team.manager?.email || 'No email'}
+                        </div>
+                      </div>
+                    </div>
+
+                    <span className="team-manager-badge">
+                      <Crown size={12} />
+                      <span>Manager</span>
+                    </span>
+                  </div>
                 </div>
 
                 {/* Team Stats & Members Avatars */}
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    paddingTop: 8,
-                    borderTop: '1px solid var(--card-border-subtle)',
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <span
-                      style={{
-                        fontSize: '0.75rem',
-                        fontWeight: 600,
-                        color: 'var(--text-secondary)',
-                      }}
-                    >
+                <div className="team-card-footer">
+                  <div className="team-members-wrapper">
+                    <span className="team-members-label">
                       Members ({team.members?.length || 0}):
                     </span>
-                    <div style={{ display: 'flex', marginLeft: 4 }}>
+                    <div className="team-members-avatars">
                       {(team.members || []).slice(0, 4).map((m, idx) => (
                         <div
                           key={m._id || idx}
-                          title={`${m.name} (${m.role})`}
-                          style={{
-                            width: 26,
-                            height: 26,
-                            borderRadius: '50%',
-                            background: 'linear-gradient(135deg, #3A86FF 0%, #00B4D8 100%)',
-                            color: '#FFF',
-                            fontSize: '0.65rem',
-                            fontWeight: 700,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            marginLeft: idx === 0 ? 0 : -8,
-                            border: '2px solid var(--card-bg)',
-                          }}
+                          title={`${m.name || 'Member'} (${m.role || 'Member'})`}
+                          className="team-member-mini-avatar"
                         >
                           {getInitials(m.name || 'U')}
                         </div>
                       ))}
                       {(team.members?.length || 0) > 4 && (
-                        <div
-                          style={{
-                            width: 26,
-                            height: 26,
-                            borderRadius: '50%',
-                            background: 'var(--card-bg-subtle)',
-                            color: 'var(--text-muted)',
-                            fontSize: '0.65rem',
-                            fontWeight: 700,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            marginLeft: -8,
-                            border: '2px solid var(--card-bg)',
-                          }}
-                        >
+                        <div className="team-member-more-count">
                           +{(team.members.length - 4)}
                         </div>
                       )}
                     </div>
                   </div>
 
-                  <span
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 4,
-                      fontSize: '0.75rem',
-                      fontWeight: 700,
-                      color: '#00B4D8',
-                      background: 'rgba(0, 180, 216, 0.15)',
-                      padding: '3px 10px',
-                      borderRadius: 'var(--card-radius-pill)',
-                    }}
-                  >
+                  <span className="team-tasks-badge">
                     <Briefcase size={12} />
-                    {team.taskCount || 0} Tasks
+                    <span>{team.taskCount || 0} Tasks</span>
                   </span>
                 </div>
-              </GlassCard>
+              </div>
             );
           })}
         </div>
