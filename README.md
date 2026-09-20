@@ -358,8 +358,8 @@ Add screenshots of the application here.
 
 **Swastika Dey**
 
-* **GitHub**: [YOUR_GITHUB_PROFILE](https://github.com/YOUR_GITHUB_PROFILE)
-* **LinkedIn**: [YOUR_LINKEDIN_PROFILE](https://linkedin.com/in/YOUR_LINKEDIN_PROFILE)
+* **GitHub**: [YOUR_GITHUB_PROFILE](https://github.com/Swastikad4)
+* **LinkedIn**: [YOUR_LINKEDIN_PROFILE](https://www.linkedin.com/in/swastika-dey-a9315628a/)
 
 ---
 
