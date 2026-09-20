@@ -345,3 +345,25 @@ npm run test:realtime
 # Run Core Backend API Test Suite (31 assertions)
 npm test
 ```
+
+---
+
+## 📸 Screenshots
+
+Add screenshots of the application here.
+
+---
+
+## 👩💻 Author
+
+**Swastika Dey**
+
+* **GitHub**: [YOUR_GITHUB_PROFILE](https://github.com/YOUR_GITHUB_PROFILE)
+* **LinkedIn**: [YOUR_LINKEDIN_PROFILE](https://linkedin.com/in/YOUR_LINKEDIN_PROFILE)
+
+---
+
+## 📄 License
+
+This project is for educational and development purposes.
+
