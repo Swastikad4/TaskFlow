@@ -28,7 +28,9 @@ export const attachmentService = {
 
   // Get download URL for an attachment
   getDownloadUrl: (id) => {
-    const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    const envUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    const cleanUrl = envUrl.trim().replace(/\/+$/, '');
+    const baseUrl = cleanUrl.endsWith('/api') ? cleanUrl : `${cleanUrl}/api`;
     return `${baseUrl}/attachments/${id}/download`;
   },
 };

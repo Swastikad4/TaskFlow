@@ -34,7 +34,27 @@ export const SocketProvider = ({ children }) => {
       return;
     }
 
-    const socketUrl = import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000';
+    // Resolve socket server URL from VITE_WS_URL, VITE_SOCKET_URL, or VITE_API_URL root
+    const getSocketUrl = () => {
+      const rawUrl =
+        import.meta.env.VITE_WS_URL ||
+        import.meta.env.VITE_SOCKET_URL ||
+        import.meta.env.VITE_API_URL ||
+        'http://localhost:5000';
+
+      let cleanUrl = rawUrl.trim().replace(/\/+$/, '');
+      if (cleanUrl.endsWith('/api')) {
+        cleanUrl = cleanUrl.slice(0, -4);
+      }
+      if (cleanUrl.startsWith('ws://')) {
+        cleanUrl = 'http://' + cleanUrl.slice(5);
+      } else if (cleanUrl.startsWith('wss://')) {
+        cleanUrl = 'https://' + cleanUrl.slice(6);
+      }
+      return cleanUrl;
+    };
+
+    const socketUrl = getSocketUrl();
     const newSocket = io(socketUrl, {
       transports: ['websocket', 'polling'],
       autoConnect: true,
