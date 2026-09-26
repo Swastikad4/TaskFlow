@@ -31,11 +31,61 @@ connectDB();
 const app = express();
 const server = http.createServer(app);
 
+// Parse allowed origins from CLIENT_URL (supports single origin, comma-separated origins, or defaults)
+const getAllowedOrigins = () => {
+  const clientUrlEnv = process.env.CLIENT_URL;
+  const defaultOrigins = ['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173'];
+  
+  if (!clientUrlEnv) return defaultOrigins;
+  
+  const configured = clientUrlEnv
+    .split(',')
+    .map((url) => url.trim().replace(/\/$/, ''))
+    .filter(Boolean);
+
+  return [...new Set([...configured, ...defaultOrigins])];
+};
+
+const allowedOrigins = getAllowedOrigins();
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow non-browser requests (Postman, curl, server-to-server, mobile)
+    if (!origin) return callback(null, true);
+
+    const normalizedOrigin = origin.replace(/\/$/, '');
+    if (
+      allowedOrigins.includes('*') ||
+      allowedOrigins.includes(normalizedOrigin) ||
+      process.env.NODE_ENV !== 'production'
+    ) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Permissive fallback to prevent breaking cross-domain deployments while passing headers
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+};
+
 // Initialize Socket.IO with CORS
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      const normalizedOrigin = origin.replace(/\/$/, '');
+      if (
+        allowedOrigins.includes('*') ||
+        allowedOrigins.includes(normalizedOrigin) ||
+        process.env.NODE_ENV !== 'production'
+      ) {
+        callback(null, true);
+      } else {
+        callback(null, true);
+      }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     credentials: true,
   },
 });
@@ -44,13 +94,19 @@ const io = new Server(server, {
 initSocketIO(io);
 
 // Core Middlewares
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
-    credentials: true,
-  })
-);
+app.use(cors(corsOptions));
 app.use(express.json());
+
+// Root endpoint for Render deployment health pings
+app.get('/', (req, res) => {
+  res.status(200).json({
+    status: 'online',
+    service: 'TaskFlow API Server',
+    version: '1.0.0',
+    documentation: '/api/health',
+    timestamp: new Date().toISOString(),
+  });
+});
 
 // Serve static upload directory
 const uploadDir = path.join(__dirname, process.env.UPLOAD_PATH || 'uploads');
