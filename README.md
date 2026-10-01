@@ -420,8 +420,8 @@ npm test
 
 **Swastika Dey**
 
-* **GitHub**: [YOUR_GITHUB_PROFILE](https://github.com/Swastikad4)
-* **LinkedIn**: [YOUR_LINKEDIN_PROFILE](https://www.linkedin.com/in/swastika-dey-a9315628a/)
+* **GitHub**: [SWASTIKA DEY](https://github.com/Swastikad4)
+* **LinkedIn**: [SWASTIKA DEY](https://www.linkedin.com/in/swastika-dey-a9315628a/)
 
 ---
 
